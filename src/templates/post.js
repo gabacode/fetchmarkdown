@@ -4,11 +4,13 @@ import Layout from "../components/layout"
 import { graphql } from "gatsby"
 
 export default function Post({ data }) {
-  const post = data.allMdx.edges
+  const post = data.allMdx.edges[0].node
   return (
     <Layout>
+      <h1>{post.frontmatter.title}</h1>
+      <p>Author: {post.frontmatter.author}</p>
         <MDXRenderer>
-          {post[0].node.body}
+          {post.body}
         </MDXRenderer>
         <pre>{JSON.stringify(post, null, 4)}</pre>
     </Layout>
@@ -23,7 +25,9 @@ export const query = graphql`
               fields {
                   slug
               }
-              frontmatter{
+              frontmatter {
+                title
+                author
                 hasBool
               }
           }
