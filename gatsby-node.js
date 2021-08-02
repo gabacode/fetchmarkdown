@@ -8,14 +8,10 @@ exports.createPages = ({ graphql, actions }) => {
       {
         allMdx(
           filter: { fileAbsolutePath: { regex: "/posts/" } }
-          limit: 1000
         ) {
           edges {
             node {
               slug
-              fields {
-                slug
-              }
               frontmatter {
                 title
                 hasBool
@@ -37,7 +33,7 @@ exports.createPages = ({ graphql, actions }) => {
       const next = index === 0 ? null : posts[index - 1].node
 
       createPage({
-        path: `/posts${post.node.fields.slug}`,
+        path: `/posts/${post.node.slug}`,
         component: path.resolve(`./src/templates/post.js`),
         context: {
           slug: post.node.slug,
@@ -52,13 +48,11 @@ exports.createPages = ({ graphql, actions }) => {
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions
-
-  if ([`MarkdownRemark`, 'Mdx'].includes(node.internal.type)) {
-    const value = createFilePath({ node, getNode })
+  if (node.internal.type === `MarkdownRemark` || node.internal.type === `Mdx`) {
     createNodeField({
-      name: `slug`,
+      name: `type`,
       node,
-      value,
-    })
+      value: getNode(node.parent).sourceInstanceName
+    });
   }
-}
+};

@@ -9,7 +9,7 @@ const Header = () => {
                 <meta charSet="utf-8" />
                 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap-grid.min.css" />
             </Helmet>
-            <nav style={{width:'100vw',backgroundColor:'purple'}}>
+            <nav style={{backgroundColor:'purple'}}>
                 <div className="container">
                     <h1 style={{color:'white',margin:'0'}}>Menu</h1>
                 </div>
