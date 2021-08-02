@@ -1,9 +1,11 @@
 import React, {Fragment} from "react"
 import { graphql, Link } from "gatsby"
+import Layout from '../components/layout'
 
 export default function IndexPage({data}) {
   const postList = data.allMdx.edges
   return (
+    <Layout>
     <main>
       <title>
         Home Page
@@ -22,6 +24,7 @@ export default function IndexPage({data}) {
       }
       </ul>
     </main>
+    </Layout>
   )
 }
 
