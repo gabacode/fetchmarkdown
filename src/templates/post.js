@@ -1,7 +1,7 @@
 import React from "react"
 import { MDXRenderer } from 'gatsby-plugin-mdx'
 import Layout from "../components/layout"
-import { graphql } from "gatsby"
+import { graphql, Link } from "gatsby"
 import { Helmet } from "react-helmet"
 
 export default function Post({ data }) {
@@ -15,11 +15,10 @@ export default function Post({ data }) {
     </Helmet>
     <Layout>
       <h1>{post.frontmatter.title}</h1>
-      <p>Author: {post.frontmatter.author}</p>
+      <p>Author: <Link to={`../../author/${post.frontmatter.author}`}>{post.frontmatter.author}</Link></p>
         <MDXRenderer>
           {post.body}
         </MDXRenderer>
-        {/* <pre>{JSON.stringify(post, null, 4)}</pre> */}
     </Layout>
     </>
   )

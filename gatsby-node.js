@@ -6,15 +6,12 @@ exports.createPages = ({ graphql, actions }) => {
   return graphql(
     `
       {
-        allMdx(
-          filter: { fileAbsolutePath: { regex: "/posts/" } }
-        ) {
+        allMdx {
           edges {
             node {
               slug
               frontmatter {
-                title
-                hasBool
+                author
               }
             }
           }
@@ -39,8 +36,13 @@ exports.createPages = ({ graphql, actions }) => {
           slug: post.node.slug,
           previous,
           next,
-        },
-      })
+        }});
+      createPage({
+          path: `/author/${post.node.frontmatter.author}`,
+          component: path.resolve(`./src/templates/author.js`),
+          context: {
+            author: post.node.frontmatter.author,
+          }})
     })
     return null
   })

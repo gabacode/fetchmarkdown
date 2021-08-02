@@ -18,9 +18,12 @@ export default function IndexPage({data}) {
         postList.map((post, index) => (
           <Fragment>
             <li key={index}>
-                <h1 style={{display:'inline'}}>{post.node.frontmatter.title}</h1>
-                <span> (by {post.node.frontmatter.author})</span><br/>
-                <Link to={`posts/${post.node.slug}`}>{post.node.slug}</Link>
+                <h1 style={{display:'inline'}}>
+                  <Link to={`posts/${post.node.slug}`}>
+                    {post.node.frontmatter.title}
+                  </Link>
+                </h1>
+                <span> (by <Link to={`author/${post.node.frontmatter.author}`}>{post.node.frontmatter.author}</Link>)</span><br/>
             </li>
           </Fragment>
         ))

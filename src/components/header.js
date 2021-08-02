@@ -1,4 +1,5 @@
 import React, {Fragment} from 'react';
+import { Link } from "gatsby"
 import { Helmet } from "react-helmet"
 
 
@@ -11,7 +12,11 @@ const Header = () => {
             </Helmet>
             <nav style={{backgroundColor:'purple'}}>
                 <div className="container">
-                    <h1 style={{color:'white',margin:'0'}}>Menu</h1>
+                    <Link to="/">
+                        <h1 style={{color:'white',margin:'0'}}>
+                            Menu
+                        </h1>
+                    </Link>
                 </div>
             </nav>
         </Fragment>
