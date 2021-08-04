@@ -1,6 +1,8 @@
 import React, {Fragment} from 'react';
 import {FaUser, FaCalendarAlt, FaFolderOpen, FaHashtag} from 'react-icons/fa';
 import { MDXRenderer } from 'gatsby-plugin-mdx'
+import { format } from 'date-fns'
+import { it } from 'date-fns/locale'
 import { useStaticQuery, graphql, Link } from "gatsby"
 import styled from "styled-components"
 
@@ -14,10 +16,10 @@ const PostList = () => {
                     slug
                     frontmatter {
                       title
-                      date
+                      date(formatString:"yyyy-MM-DD")
                       author
                       category
-                      tag
+                      tags
                     }
                 }
             }
@@ -41,14 +43,14 @@ const PostList = () => {
                       
                       <Crumb>
                         <FaCalendarAlt className="icon" size="12"/>
-                        <Link to={`date/${post.node.frontmatter.date.replace(/ /g,"_")}`}>
-                          {post.node.frontmatter.date}
+                        <Link to={`/date/${post.node.frontmatter.date}`}>
+                          {format(new Date(post.node.frontmatter.date), "dd MMMM yyyy", {locale: it})}
                         </Link>
                       </Crumb>
 
                       <Crumb>
                         <FaUser className="icon" size="12"/>
-                        <Link to={`author/${post.node.frontmatter.author}`}>
+                        <Link to={`/author/${post.node.frontmatter.author}`}>
                           {post.node.frontmatter.author}
                         </Link>
                       </Crumb>
@@ -57,7 +59,7 @@ const PostList = () => {
                       <FaFolderOpen className="icon" size="12"/>
                         {post.node.frontmatter.category && post.node.frontmatter.category.map((category, i) => (
                           <>
-                            <Link to={`category/${category.replace(/ /g,"_")}`}>
+                            <Link to={`/category/${category.toLowerCase().replace(/ /g,"_")}`}>
                               {category}
                             </Link>
                             {i == 0 ?
@@ -70,9 +72,17 @@ const PostList = () => {
 
                       <Crumb>
                         <FaHashtag className="icon" size="12"/>
-                        <Link to={`tag/${post.node.frontmatter.tag.replace(/ /g,"_")}`}>
-                          {post.node.frontmatter.tag}
-                        </Link>
+                        {post.node.frontmatter.tags && post.node.frontmatter.tags.map((tag, i) => (
+                          <>
+                          <Link to={`tags/${tag.toLowerCase().replace(/ /g,"_")}`}>
+                            {tag}
+                          </Link>
+                          {i == 1 ?
+                              <span>, </span>
+                              :null
+                            }
+                          </>
+                          ))}
                       </Crumb>
 
                   </BreadCrumbs>
@@ -88,8 +98,8 @@ const PostList = () => {
 }
 
 const PostWrapper = styled.div`
-  padding-top: 50px;
-  padding-bottom: 50px;
+  padding-top: 40px;
+  padding-bottom: 40px;
   max-width: 600px;
   margin: 0 auto;
 `
