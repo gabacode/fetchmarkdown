@@ -41,40 +41,44 @@ exports.createPages = ({ graphql, actions }) => {
           previous,
           next,
         }});
+      post.node.frontmatter.author !== null ?
       createPage({
           path: `/author/${post.node.frontmatter.author}`,
           component: path.resolve(`./src/templates/author.js`),
           context: {
             author: post.node.frontmatter.author,
-        }});
+        }})
+        :null
+      post.node.frontmatter.date !== null ?
       createPage({
           path: `/date/${post.node.frontmatter.date}`,
           component: path.resolve(`./src/templates/date.js`),
           context: {
             date: post.node.frontmatter.date,
-        }});
+        }})
+        :null
 
-        post.node.frontmatter.category && post.node.frontmatter.category.length > 0 ?
-          post.node.frontmatter.category.forEach(cat => {
-            createPage({
-              path: `/category/${cat.toLowerCase().replace(/ /g,"_")}`,
-              component: path.resolve(`./src/templates/category.js`),
-              context: {
-                category: cat,
-            }});
-          })
-          : null
+      post.node.frontmatter.category && post.node.frontmatter.category.length > 0 ?
+        post.node.frontmatter.category.forEach(cat => {
+          createPage({
+            path: `/category/${cat.toLowerCase().replace(/ /g,"_")}`,
+            component: path.resolve(`./src/templates/category.js`),
+            context: {
+              category: cat,
+          }});
+        })
+        :null
         
-        post.node.frontmatter.tags && post.node.frontmatter.tags.length > 0 ?
+      post.node.frontmatter.tags && post.node.frontmatter.tags.length > 0 ?
         post.node.frontmatter.tags.forEach(tag => {
           createPage({
             path: `/tags/${tag.toLowerCase().replace(/ /g,"_")}`,
             component: path.resolve(`./src/templates/tag.js`),
             context: {
               tags: tag,
-            }});
-          })
-          : null
+          }});
+        })
+        :null
     })
     return null
   })

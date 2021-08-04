@@ -34,7 +34,7 @@ export default function Author({ data }) {
 }
 export const query = graphql`
   query($author: String!) {
-    posts: allMdx(filter: {frontmatter: {author: {eq: $author}}}) {
+    posts: allMdx(filter: {frontmatter: {author: {eq: $author, ne: null}}, fields: {type: {eq: "posts"}}}) {
       edges {
           node {
               body
@@ -46,7 +46,7 @@ export const query = graphql`
           }
       }
     }
-    author: allMdx(filter: {frontmatter: {name: {eq: $author}}}) {
+    author: allMdx(filter: {frontmatter: {name: {eq: $author, ne: null}}}) {
       edges {
           node {
               frontmatter {
