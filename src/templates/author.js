@@ -42,7 +42,6 @@ export const query = graphql`
               frontmatter {
                 title
                 author
-                hasBool
               }
           }
       }
