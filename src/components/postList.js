@@ -41,7 +41,7 @@ const PostList = () => {
                       
                       <Crumb>
                         <FaCalendarAlt className="icon" size="12"/>
-                        <Link to={`author/${post.node.frontmatter.date}`}>
+                        <Link to={`date/${post.node.frontmatter.date.replace(/ /g,"_")}`}>
                           {post.node.frontmatter.date}
                         </Link>
                       </Crumb>
@@ -54,15 +54,23 @@ const PostList = () => {
                       </Crumb>
 
                       <Crumb>
-                        <FaFolderOpen className="icon" size="12"/>
-                        <Link to={`author/${post.node.frontmatter.category}`}>
-                          {post.node.frontmatter.category}
-                        </Link>
+                      <FaFolderOpen className="icon" size="12"/>
+                        {post.node.frontmatter.category && post.node.frontmatter.category.map((category, i) => (
+                          <>
+                            <Link to={`category/${category.replace(/ /g,"_")}`}>
+                              {category}
+                            </Link>
+                            {i == 0 ?
+                              <span>, </span>
+                              :null
+                            }
+                          </>
+                        ))}
                       </Crumb>
 
                       <Crumb>
                         <FaHashtag className="icon" size="12"/>
-                        <Link to={`author/${post.node.frontmatter.tag}`}>
+                        <Link to={`tag/${post.node.frontmatter.tag.replace(/ /g,"_")}`}>
                           {post.node.frontmatter.tag}
                         </Link>
                       </Crumb>
