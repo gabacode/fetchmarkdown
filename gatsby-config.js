@@ -1,4 +1,5 @@
 module.exports = {
+  pathPrefix: "/fetchmarkdown",
   siteMetadata: {
     siteUrl: "https://www.yourdomain.tld",
     title: "fetchmarkdown",
