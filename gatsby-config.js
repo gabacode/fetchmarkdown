@@ -30,5 +30,8 @@ module.exports = {
         name: `authors`,
       },
     },
+    {
+      resolve: `gatsby-plugin-no-sourcemaps`,
+    },
   ],
 };
