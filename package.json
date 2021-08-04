@@ -2,6 +2,7 @@
   "name": "fetchmarkdown",
   "version": "1.0.0",
   "private": true,
+  "homepage": "http://gabacode.github.io/fetchmarkdown",
   "description": "fetchmarkdown",
   "author": "Gabriele Scalici",
   "keywords": [
